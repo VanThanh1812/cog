@@ -18,7 +18,7 @@ func (c cogInfo) GetOwner() (models.Address){
 	owner, _ := cog.Owner(nil)
 	o := models.Address{
 		Address: owner.String(),
-	}
+	} //aass
 	return o
 }
 
