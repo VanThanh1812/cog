@@ -1,3 +1,4 @@
-cog
+./cog
 vendor
 swagger
+.idea
