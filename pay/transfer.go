@@ -11,6 +11,7 @@ import (
 	"errors"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
+	"cog/contract"
 )
 
 type ICogWallet interface {
@@ -29,10 +30,24 @@ var (
 	err error
 	proofKey = "24e890c939b2f19273a2843f0ba1836c"
 	pass = "thanhpv1234"
+	session contract.CogNetworkSession
 )
 
 func init(){
 	auth, err = bind.NewTransactor(strings.NewReader(key), pass)
+	session = contract.CogNetworkSession{
+		Contract: cog,
+		CallOpts: bind.CallOpts{
+			Pending: true,
+		},
+		TransactOpts: bind.TransactOpts{
+			From: auth.From,
+			Signer: auth.Signer,
+			GasLimit: 2000000,
+			GasPrice: big.NewInt(21000),
+		},
+	}
+
 	if err != nil {
 		log.Fatalf("Failed to connect to the Ethereum client: %v", err)
 	}
@@ -51,7 +66,8 @@ func (c cogWallet) Transfer(proofKey string, rq models.TransferRequest)(*types.T
 		return nil, errors.New("Amount require more than 0")
 	}
 
-	tx, err := cog.Transfer(auth, common.HexToAddress(rq.AddrTo), big.NewInt(rq.Amount), rq.Content)
+	tx, err := session.Transfer(common.HexToAddress(rq.AddrTo), big.NewInt(rq.Amount), rq.Content)
+
 	if err != nil {
 		log.Fatalf("Failed to request token transfer: %v", err)
 		return nil, err
