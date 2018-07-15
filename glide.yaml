@@ -1,0 +1,15 @@
+package: cog
+import:
+- package: github.com/astaxie/beego
+- package: github.com/ethereum/go-ethereum
+  subpackages:
+  - accounts/abi
+  - accounts/abi/bind
+  - common
+  - core/types
+  - ethclient
+  - event
+testImport:
+- package: github.com/smartystreets/goconvey
+  subpackages:
+  - convey
