@@ -30,12 +30,12 @@ var (
 	err error
 	proofKey = "24e890c939b2f19273a2843f0ba1836c"
 	pass = "thanhpv1234"
-	session contract.CogNetworkSession
+	session *contract.CogNetworkSession
 )
 
 func init(){
 	auth, err = bind.NewTransactor(strings.NewReader(key), pass)
-	session = contract.CogNetworkSession{
+	session = &contract.CogNetworkSession{
 		Contract: cog,
 		CallOpts: bind.CallOpts{
 			Pending: true,
