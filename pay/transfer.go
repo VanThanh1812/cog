@@ -71,6 +71,7 @@ func (c cogWallet) Transfer(proofKey string, rq models.TransferRequest)(*types.T
 		return nil, err
 	}
 
+	log.Println(session.Name())
 	tx, err := session.Transfer(common.HexToAddress(rq.AddrTo), big.NewInt(rq.Amount), rq.Content)
 	//tx, err := cog.Transfer(auth, common.HexToAddress(rq.AddrTo), big.NewInt(rq.Amount), rq.Content)
 
