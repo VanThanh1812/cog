@@ -66,6 +66,11 @@ func (c cogWallet) Transfer(proofKey string, rq models.TransferRequest)(*types.T
 		return nil, errors.New("Amount require more than 0")
 	}
 
+	if nil == session {
+		log.Fatalf("Failed to request token transfer: %v", "Session nil")
+		return nil, err
+	}
+
 	tx, err := session.Transfer(common.HexToAddress(rq.AddrTo), big.NewInt(rq.Amount), rq.Content)
 
 	if err != nil {
