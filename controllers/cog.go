@@ -95,6 +95,7 @@ func (c *CogController) Transfer() {
 
 	var res models.Response
 	tx, err := pay.CogWallet.Transfer(proofkey, rq)
+
 	if err == nil{
 		res = models.Response{
 			Data: tx,

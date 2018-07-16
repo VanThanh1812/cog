@@ -71,7 +71,8 @@ func (c cogWallet) Transfer(proofKey string, rq models.TransferRequest)(*types.T
 		return nil, err
 	}
 
-	tx, err := session.Transfer(common.HexToAddress(rq.AddrTo), big.NewInt(rq.Amount), rq.Content)
+	//session.Transfer(common.HexToAddress(rq.AddrTo), big.NewInt(rq.Amount), rq.Content)
+	tx, err := cog.Transfer(auth, common.HexToAddress(rq.AddrTo), big.NewInt(rq.Amount), rq.Content)
 
 	if err != nil {
 		log.Fatalf("Failed to request token transfer: %v", err)
